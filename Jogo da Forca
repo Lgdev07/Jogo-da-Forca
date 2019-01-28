@@ -1,0 +1,53 @@
+import unicodedata
+import re
+
+
+def removerAcentosECaracteresEspeciais(palavra):
+    nfkd = unicodedata.normalize('NFKD', palavra)
+    palavraSemAcento = u"".join([c for c in nfkd if not unicodedata.combining(c)])
+    return re.sub('[^a-zA-Z0-9 \\\]', '', palavraSemAcento)
+
+
+chances = 0
+escolhida = str(input('Digite a palavra a ser descoberta: ')).upper()
+escolhida = removerAcentosECaracteresEspeciais(escolhida)
+escolhida1 = escolhida2 = escolhida
+palavradigitada = []
+
+for i in range(0, 30):
+    print()
+print('JOGO DA FORCA\n')
+print(f'A palavra escolhida tem {len(escolhida)} letras')
+print('VAMOS COMEÇAR')
+print('VOCÊ TEM 3 CHANCES\n')
+
+for i in escolhida1:
+    print('_ ', end='')
+print()
+
+while True:
+    user = str(input('DIGITE UMA LETRA: ')).upper().split()[0]
+    print()
+    if user not in escolhida:
+        chances += 1
+        if chances == 3:
+            print('INFELIZMENTE VOCÊ PERDEU, TENTE NOVAMENTE =)')
+            print(f'A PALAVRA ERA {escolhida2}')
+            break
+        if chances > 0:
+            print(f'Você ainda tem {3 - chances} chances')
+    if user in escolhida:
+        print(f'Voce achou a letra {user}')
+        palavradigitada.append(user[:])
+        escolhida = str(escolhida).replace(user, '')
+        for i in escolhida1:
+            if i not in palavradigitada:
+                escolhida1 = str(escolhida1).replace(i, '_ ')
+        print(f'{escolhida1}\n')
+
+    escolhida1 = escolhida2
+
+    if len(escolhida) == 0:
+        print('PARABENS VOCE VENCEU')
+        print(f'A PALAVRA É {escolhida2}')
+        break
