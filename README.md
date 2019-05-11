@@ -1,5 +1,5 @@
 # Jogo-da-Forca
 
-O primeiro jogador digita a palavra e o segundo deve adivinhar!
+Diversas bibliotecas para pegar palavras aleatórias e formar o jogo de adivinhação!
 
 Feito por Luan Gomes
